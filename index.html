@@ -12,7 +12,7 @@
 <section class="card weather"><h2>☀ Tempo · 3 dias</h2><div id="forecast">A carregar…</div></section>
 <section class="card agenda"><div class="head"><h2>📅 Agenda</h2><button id="showEvent">+ Evento</button></div><div id="events"></div></section>
 <section class="card shopping"><h2>🛒 Lista de compras</h2><div id="shopping" class="list"></div><form id="shoppingForm"><input id="shoppingInput" placeholder="Adicionar item"><button>+</button></form></section>
-<section class="card tasks"><h2>✓ Tarefas</h2><div id="tasks" class="list"></div><form id="taskForm"><input id="taskInput" placeholder="Adicionar tarefa"><button>+</button></form></section>
+<section class="card tasks"><h2>✓ Tarefas</h2><div id="tasks" class="list"></div><form id="taskForm"><input id="taskInput" placeholder="Adicionar tarefa"><button>+</button></form></section><section class="card menu"><div class="head"><h2>🍽 Ementa semanal</h2><span class="hint">Toque para editar</span></div><div id="weeklyMenu" class="menuGrid"></div></section>
 </main></div>
 <div id="modal" class="modal"><div class="modalBox">
 <div class="head"><h2>Novo evento</h2><button type="button" id="closeEvent" class="close">×</button></div>
@@ -20,7 +20,7 @@
 <label>Dia</label><div class="triple"><select id="day"></select><select id="month"></select><select id="year"></select></div>
 <label>Hora</label><div class="double"><select id="hour"></select><select id="minute"></select></div>
 <label>Descrição</label><input id="eventText" placeholder="Ex.: Jantar de família" required>
-<label>Categoria</label><select id="who"><option value="maryli">● Maryli</option><option value="lourenco">● Lourenço</option><option value="nuno">● Nuno</option><option value="casa">● Casa</option></select>
+<label>Categoria</label><select id="who"><option value="maryli">● Maryli</option><option value="lourenco">● Lourenço</option><option value="nuno">● Nuno</option><option value="casa">● Casa</option></select><label>Repetição</label><select id="repeat"><option value="none">Não repetir</option><option value="weekly">Semanal</option><option value="monthly">Mensal</option></select>
 <button class="save">Guardar evento</button>
 </form></div></div>
 <script src="app.js"></script></body></html>
