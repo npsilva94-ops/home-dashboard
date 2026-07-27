@@ -344,3 +344,12 @@ button{
 /* V5.2 — cinco dias no mesmo cartão compacto */
 .weather{min-height:245px}
 .weatherLine{min-height:36px;padding:6px 2px}
+
+/* V5.4 — exportação da lista de compras */
+.exportBtn{
+  padding:6px 10px;
+  background:#6f8f75;
+  font-size:12px;
+  min-width:44px;
+}
+.exportBtn:active{opacity:.65}

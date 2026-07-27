@@ -96,6 +96,29 @@ el("eventForm").onsubmit=function(e){
 };
 var days=["Domingo","Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sábado"],months=["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
 function tick(){var d=new Date(),h=d.getHours(),m=d.getMinutes();el("greet").innerHTML=h<12?"Bom dia!":h<20?"Boa tarde!":"Boa noite!";el("dateText").innerHTML=days[d.getDay()]+", "+d.getDate()+" de "+months[d.getMonth()];el("clock").innerHTML=pad(h)+":"+pad(m)}tick();setInterval(tick,30000);
+
+function exportShoppingPDF(){
+ var items=[],k;
+ for(k in state.shopping){
+  if(state.shopping.hasOwnProperty(k) && !state.shopping[k].done){
+   items.push(state.shopping[k].text||"")
+  }
+ }
+ var now=new Date(),dateTxt=pad(now.getDate())+"/"+pad(now.getMonth()+1)+"/"+now.getFullYear();
+ var rows="";
+ if(items.length){
+  for(var i=0;i<items.length;i++)rows+='<li>'+esc(items[i])+'</li>'
+ }else{
+  rows='<li>Nenhum item por comprar.</li>'
+ }
+ var doc='<!doctype html><html><head><meta charset="utf-8"><title>Lista de compras</title>'
+ +'<style>body{font-family:Arial,sans-serif;color:#222;padding:28px;max-width:700px;margin:auto}h1{font-size:25px;margin:0 0 5px}.date{color:#777;margin-bottom:22px}ul{list-style:none;padding:0;margin:0}li{font-size:18px;padding:11px 0;border-bottom:1px solid #ddd}li:before{content:"☐";display:inline-block;width:30px;color:#555}@media print{button{display:none}body{padding:8px}}</style>'
+ +'</head><body><h1>Lista de compras</h1><div class="date">'+dateTxt+'</div><ul>'+rows+'</ul>'
+ +'<script>window.onload=function(){setTimeout(function(){window.print()},250)}<\/script></body></html>';
+ var win=window.open("","_blank");
+ if(win){win.document.open();win.document.write(doc);win.document.close()}
+ else{alert("Não foi possível abrir a lista para impressão. Permita janelas pop-up para este site.")}
+}
 function wi(c){if(c===0)return"☀";if(c<=3)return"⛅";if(c<=48)return"☁";if(c<=67)return"☂";if(c<=77)return"❄";if(c<=82)return"☂";return"☂"}
 var WEATHER_KEY="home.weather.cache.v2.5days",WEATHER_MAX_AGE=10800000;
 function weatherReadLocal(){try{var x=localStorage.getItem(WEATHER_KEY);return x?JSON.parse(x):null}catch(e){return null}}
@@ -140,6 +163,7 @@ function weatherStart(){
   if(!local||!local.updated||now-local.updated>WEATHER_MAX_AGE)weatherRefresh()
  })
 }
+el("exportShopping").onclick=exportShoppingPDF;
 weatherStart();
 loadAll();setInterval(loadAll,5000);
 })();
