@@ -35,3 +35,305 @@
   font-weight:normal;
   vertical-align:-1px;
 }
+
+/* =========================================================
+   V5 — REDESIGN LEVE / IPAD MINI LANDSCAPE
+   Apenas CSS/HTML: sem imagens, fontes ou bibliotecas externas.
+   ========================================================= */
+body{
+  background:#eef1f4;
+  color:#263238;
+}
+.app{
+  max-width:1024px;
+  padding:16px 18px 20px;
+}
+header{
+  min-height:68px;
+  padding:2px 4px 12px;
+  border-bottom:1px solid #dce1e5;
+  margin-bottom:12px;
+}
+.welcome{
+  display:flex;
+  align-items:center;
+}
+.homeMark{
+  display:inline-block;
+  width:42px;
+  height:42px;
+  line-height:39px;
+  text-align:center;
+  margin-right:11px;
+  border:1px solid #cfd8df;
+  border-radius:11px;
+  background:#fff;
+  color:#4e6f88;
+  font-size:28px;
+}
+h1{
+  font-size:25px;
+  line-height:28px;
+  font-weight:600;
+  letter-spacing:-.2px;
+}
+#dateText{
+  display:block;
+  margin-top:3px;
+  font-size:13px;
+  color:#7a858d;
+}
+.headerRight{
+  display:flex;
+  align-items:center;
+  margin-left:auto;
+}
+#clock{
+  font-size:24px;
+  font-weight:600;
+  letter-spacing:.3px;
+}
+.sync{
+  display:inline-block;
+  width:18px;
+  margin:0 0 0 9px;
+  font-size:13px;
+  text-align:center;
+  color:#9aa2a8;
+}
+.sync.ok{color:#62a26f}
+.sync.bad{color:#c76565}
+
+main{margin:-6px}
+.card{
+  margin:6px;
+  padding:16px 17px;
+  border:1px solid #dfe4e8;
+  border-radius:12px;
+  background:#fff;
+  box-shadow:0 1px 2px rgba(0,0,0,.035);
+  position:relative;
+  overflow:hidden;
+}
+.card:before{
+  content:"";
+  position:absolute;
+  left:0;right:0;top:0;
+  height:3px;
+  background:#cbd4db;
+}
+.weather:before{background:#9ec9e8}
+.agenda:before{background:#87aeda}
+.shopping:before{background:#9bc7a3}
+.tasks:before{background:#e2c878}
+.menu:before{background:#ddb48b}
+
+.weather,.shopping,.tasks,.menu{background:#fff}
+.weather{
+  width:calc(34% - 12px);
+  min-height:180px;
+}
+.agenda{
+  width:calc(66% - 12px);
+  min-height:180px;
+}
+.shopping,.tasks{
+  width:calc(50% - 12px);
+  min-height:345px;
+}
+.menu{
+  width:calc(100% - 12px);
+  min-height:165px;
+}
+
+h2{
+  margin:0 0 12px;
+  font-size:17px;
+  line-height:22px;
+  font-weight:600;
+  color:#35434c;
+}
+.sectionIcon{
+  width:23px;
+  margin-right:5px;
+  font-size:17px;
+}
+
+/* Weather */
+.forecastLines{margin-top:4px}
+.weatherLine{
+  min-height:41px;
+  padding:8px 2px;
+}
+.weatherSymbol{
+  width:26px;
+  font-size:17px;
+}
+.weatherName{
+  font-size:14px;
+  font-weight:500;
+}
+.weatherRange{
+  font-size:15px;
+  font-weight:600;
+}
+.weatherRange small{
+  font-weight:400;
+  color:#8a9298;
+}
+
+/* Agenda */
+.agenda .head{
+  padding-bottom:3px;
+}
+#events{
+  min-height:115px;
+  max-height:210px;
+}
+.eventDate{
+  margin-top:4px;
+  padding:8px 2px 5px;
+  border-bottom:1px solid #e6e9eb;
+  font-size:11px;
+  letter-spacing:.5px;
+  color:#7d878e;
+}
+.event{
+  min-height:38px;
+  padding:7px 2px;
+  border-bottom:1px solid #eef0f2;
+}
+.time{
+  width:50px;
+  font-size:13px;
+  color:#4b5962;
+}
+.dot{
+  width:10px;
+  height:10px;
+  margin:0 9px 0 3px;
+}
+.repeatBadge{
+  font-size:10px;
+  margin-left:7px;
+  color:#92999e;
+}
+.editEvent,.remove{
+  min-width:32px;
+  min-height:30px;
+}
+.editEvent{
+  color:#718795;
+}
+
+/* Buttons */
+button{
+  cursor:pointer;
+}
+#showEvent{
+  padding:7px 11px;
+  background:#527fa5;
+  font-size:13px;
+}
+.remove{
+  font-size:20px;
+  color:#a2a8ad;
+}
+.remove:active,.editEvent:active,#showEvent:active{
+  opacity:.65;
+}
+
+/* Shopping + Tasks */
+.list{
+  min-height:230px;
+  max-height:230px;
+}
+.row{
+  min-height:42px;
+  padding:8px 2px;
+  border-bottom:1px solid #eceff1;
+}
+.check{
+  width:23px;
+  height:23px;
+  margin-right:11px;
+}
+.txt{
+  font-size:15px;
+}
+#shoppingForm,#taskForm{
+  margin-top:11px;
+}
+#shoppingForm input,#taskForm input{
+  height:39px;
+  padding:8px 10px;
+  background:#fafbfb;
+}
+#shoppingForm button,#taskForm button{
+  min-width:42px;
+  margin-left:6px;
+  font-size:19px;
+  padding:6px 10px;
+}
+
+/* Weekly menu */
+.menu .head{
+  padding-bottom:2px;
+}
+.hint{
+  font-size:11px;
+  color:#9aa1a6;
+}
+.menuGrid{
+  gap:6px;
+  margin-top:10px;
+}
+.menuDay{
+  padding:9px 8px;
+  border:1px solid #e4e7e9;
+  border-radius:9px;
+  background:#fafbfb;
+}
+.menuDay b{
+  padding-bottom:5px;
+  border-bottom:1px solid #e8ebed;
+  font-size:12px;
+  color:#59666e;
+}
+.menuDay textarea{
+  height:61px;
+  padding-top:6px;
+  color:#35434c;
+  font-size:13px;
+  line-height:17px;
+}
+
+/* Modal */
+.modalBox{
+  border-radius:13px;
+  box-shadow:0 4px 18px rgba(0,0,0,.12);
+}
+.modal input,.modal select{
+  background:#fbfcfc;
+}
+.save{
+  background:#527fa5;
+}
+
+/* iPad Mini landscape target */
+@media (min-width:701px) and (max-width:1100px){
+  .app{padding:13px 15px 17px}
+  header{min-height:61px}
+  .shopping,.tasks{min-height:330px}
+  .list{min-height:215px;max-height:215px}
+  .menuDay textarea{height:55px}
+}
+
+/* Existing phone fallback */
+@media(max-width:700px){
+  .homeMark{width:36px;height:36px;line-height:34px;font-size:23px}
+  h1{font-size:22px}
+  #clock{font-size:20px}
+  .weather,.agenda,.shopping,.tasks,.menu{width:calc(100% - 12px)}
+  .menuGrid{display:block}
+}

@@ -4,7 +4,7 @@ var state={shopping:{},tasks:{},events:{},menu:{}};
 function el(x){return document.getElementById(x)}
 function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
 function req(method,path,data,cb){
- var x=new XMLHttpRequest(); x.onreadystatechange=function(){if(x.readyState===4){if(x.status>=200&&x.status<300){el("sync").className="sync ok";el("sync").innerHTML="● Sincronizado";if(cb)cb(x.responseText)}else{el("sync").className="sync bad";el("sync").innerHTML="● Erro de sincronização"}}};
+ var x=new XMLHttpRequest(); x.onreadystatechange=function(){if(x.readyState===4){if(x.status>=200&&x.status<300){el("sync").className="sync ok";el("sync").innerHTML="●";if(cb)cb(x.responseText)}else{el("sync").className="sync bad";el("sync").innerHTML="●"}}};
  x.open(method,DB+"/"+path+".json",true);x.setRequestHeader("Content-Type","application/json");x.send(data===null?null:JSON.stringify(data));
 }
 function id(){return "i"+(new Date().getTime())+"_"+Math.floor(Math.random()*100000)}
