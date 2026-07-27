@@ -1,1 +1,26 @@
-<!doctype html><html lang="pt"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="apple-mobile-web-app-capable" content="yes"><title>Casa</title><link rel="stylesheet" href="style.css"></head><body><div class="app"><header><div><h1 id="greet">Bom dia!</h1><span id="date"></span></div><b id="clock"></b></header><main><section class="card weather"><h2>☀ Tempo · 3 dias</h2><div id="forecast">A carregar…</div></section><section class="card agenda"><h2>📅 Agenda <button id="show">+ Evento</button></h2><div id="events"></div></section><section class="card shopping"><h2>🛒 Compras</h2><div id="shopping" class="list"></div><form id="sf"><input id="si" placeholder="Adicionar item"><button>+</button></form></section><section class="card tasks"><h2>✓ Tarefas</h2><div id="tasks" class="list"></div><form id="tf"><input id="ti" placeholder="Adicionar tarefa"><button>+</button></form></section></main></div><div id="modal"><form id="ef"><h2>Novo evento <button type="button" id="close">×</button></h2><label>Dia<input id="ed" type="date" required></label><label>Hora<input id="et" type="time" required></label><label>Descrição<input id="ex" required></label><label>Categoria<select id="ew"><option value="maryli">● Maryli</option><option value="lourenco">● Lourenço</option><option value="nuno">● Nuno</option><option value="casa">● Casa</option></select></label><button>Guardar evento</button></form></div><script src="app.js"></script></body></html>
+<!doctype html>
+<html lang="pt"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Casa</title><link rel="stylesheet" href="style.css">
+</head><body>
+<div class="app">
+<header><div><h1 id="greet">Bom dia!</h1><span id="dateText"></span></div><b id="clock"></b></header>
+<div id="sync" class="sync">● A ligar…</div>
+<main>
+<section class="card weather"><h2>☀ Tempo · 3 dias</h2><div id="forecast">A carregar…</div></section>
+<section class="card agenda"><div class="head"><h2>📅 Agenda</h2><button id="showEvent">+ Evento</button></div><div id="events"></div></section>
+<section class="card shopping"><h2>🛒 Lista de compras</h2><div id="shopping" class="list"></div><form id="shoppingForm"><input id="shoppingInput" placeholder="Adicionar item"><button>+</button></form></section>
+<section class="card tasks"><h2>✓ Tarefas</h2><div id="tasks" class="list"></div><form id="taskForm"><input id="taskInput" placeholder="Adicionar tarefa"><button>+</button></form></section>
+</main></div>
+<div id="modal" class="modal"><div class="modalBox">
+<div class="head"><h2>Novo evento</h2><button type="button" id="closeEvent" class="close">×</button></div>
+<form id="eventForm">
+<label>Dia</label><div class="triple"><select id="day"></select><select id="month"></select><select id="year"></select></div>
+<label>Hora</label><div class="double"><select id="hour"></select><select id="minute"></select></div>
+<label>Descrição</label><input id="eventText" placeholder="Ex.: Jantar de família" required>
+<label>Categoria</label><select id="who"><option value="maryli">● Maryli</option><option value="lourenco">● Lourenço</option><option value="nuno">● Nuno</option><option value="casa">● Casa</option></select>
+<button class="save">Guardar evento</button>
+</form></div></div>
+<script src="app.js"></script></body></html>
