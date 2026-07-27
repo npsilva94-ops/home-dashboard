@@ -176,6 +176,14 @@ function weatherStart(){
  })
 }
 el("exportShopping").onclick=exportShoppingPDF;
+
+function refreshSharedExpenses(){
+ req("GET","dashboard/expenses",null,function(t){
+  try{state.expenses=JSON.parse(t)||{};renderExpenses()}catch(e){}
+ })
+}
+setInterval(refreshSharedExpenses,15000);
+
 initExpenses();
 weatherStart();
 loadAll();setInterval(loadAll,5000);
