@@ -20,3 +20,7 @@
 .weatherName{flex:1;font-weight:600;padding-left:5px}
 .weatherRange{font-size:15px;white-space:nowrap}
 .weatherRange small{color:#777;font-size:12px;margin-left:5px}
+
+/* V4.2 — edição de eventos */
+.editEvent{margin-left:auto;background:transparent;color:#5f7488;font-size:15px;padding:4px 7px}
+.event .remove{margin-left:2px}
