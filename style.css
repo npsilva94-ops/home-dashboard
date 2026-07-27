@@ -337,3 +337,6 @@ button{
   .weather,.agenda,.shopping,.tasks,.menu{width:calc(100% - 12px)}
   .menuGrid{display:block}
 }
+
+/* V5.1 — weather cache */
+.weatherUpdated{font-size:10px;color:#9aa1a6;white-space:nowrap}

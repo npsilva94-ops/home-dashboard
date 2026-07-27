@@ -97,19 +97,48 @@ el("eventForm").onsubmit=function(e){
 var days=["Domingo","Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sábado"],months=["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
 function tick(){var d=new Date(),h=d.getHours(),m=d.getMinutes();el("greet").innerHTML=h<12?"Bom dia!":h<20?"Boa tarde!":"Boa noite!";el("dateText").innerHTML=days[d.getDay()]+", "+d.getDate()+" de "+months[d.getMonth()];el("clock").innerHTML=pad(h)+":"+pad(m)}tick();setInterval(tick,30000);
 function wi(c){if(c===0)return"☀";if(c<=3)return"⛅";if(c<=48)return"☁";if(c<=67)return"☂";if(c<=77)return"❄";if(c<=82)return"☂";return"☂"}
-var w=new XMLHttpRequest();
-w.onreadystatechange=function(){
- if(w.readyState===4&&w.status>=200&&w.status<300){
-  try{
-   var j=JSON.parse(w.responseText),o="",n=["Hoje","Amanhã","Depois"];
-   for(var i=0;i<3;i++){
-    o+='<div class="weatherLine"><span class="weatherSymbol">'+wi(j.daily.weather_code[i])+'</span><span class="weatherName">'+n[i]+'</span><span class="weatherRange">'+Math.round(j.daily.temperature_2m_max[i])+'° <small>mín. '+Math.round(j.daily.temperature_2m_min[i])+'°</small></span></div>'
-   }
-   el("forecast").innerHTML=o
-  }catch(e){}
+var WEATHER_KEY="home.weather.cache.v1",WEATHER_MAX_AGE=10800000;
+function weatherReadLocal(){try{var x=localStorage.getItem(WEATHER_KEY);return x?JSON.parse(x):null}catch(e){return null}}
+function weatherSaveLocal(d){try{localStorage.setItem(WEATHER_KEY,JSON.stringify(d))}catch(e){}}
+function weatherRender(d){
+ if(!d||!d.days||d.days.length<3)return false;
+ var o="",n=["Hoje","Amanhã","Depois"];
+ for(var i=0;i<3;i++){
+  o+='<div class="weatherLine"><span class="weatherSymbol">'+wi(d.days[i].code)+'</span><span class="weatherName">'+n[i]+'</span><span class="weatherRange">'+Math.round(d.days[i].max)+'° <small>mín. '+Math.round(d.days[i].min)+'°</small></span></div>'
  }
-};
-w.open("GET","https://api.open-meteo.com/v1/forecast?latitude=39.2362&longitude=-8.6859&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Europe%2FLisbon&forecast_days=3",true);
-w.send();
+ el("forecast").innerHTML=o;
+ if(el("weatherUpdated")&&d.updated){var age=(new Date().getTime()-d.updated),h=Math.floor(age/3600000);el("weatherUpdated").innerHTML=h<1?"agora":h+"h"}
+ return true
+}
+function weatherRefresh(){
+ var now=new Date().getTime(),lock={time:now};
+ req("GET","dashboard/weatherRefresh",null,function(t){
+  var current=null;try{current=JSON.parse(t)}catch(e){}
+  if(current&&current.time&&now-current.time<120000)return;
+  req("PUT","dashboard/weatherRefresh",lock);
+  var w=new XMLHttpRequest();
+  w.onreadystatechange=function(){
+   if(w.readyState===4&&w.status>=200&&w.status<300){
+    try{
+     var j=JSON.parse(w.responseText),d={updated:new Date().getTime(),days:[]};
+     for(var i=0;i<3;i++)d.days.push({code:j.daily.weather_code[i],max:j.daily.temperature_2m_max[i],min:j.daily.temperature_2m_min[i]});
+     weatherSaveLocal(d);weatherRender(d);req("PUT","dashboard/weather",d)
+    }catch(e){}
+   }
+  };
+  w.open("GET","https://api.open-meteo.com/v1/forecast?latitude=39.2362&longitude=-8.6859&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Europe%2FLisbon&forecast_days=3",true);
+  w.send()
+ })
+}
+function weatherStart(){
+ var local=weatherReadLocal(),now=new Date().getTime();
+ if(local)weatherRender(local);
+ req("GET","dashboard/weather",null,function(t){
+  var remote=null;try{remote=JSON.parse(t)}catch(e){}
+  if(remote&&(!local||remote.updated>local.updated)){local=remote;weatherSaveLocal(remote);weatherRender(remote)}
+  if(!local||!local.updated||now-local.updated>WEATHER_MAX_AGE)weatherRefresh()
+ })
+}
+weatherStart();
 loadAll();setInterval(loadAll,5000);
 })();
