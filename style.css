@@ -24,3 +24,14 @@
 /* V4.2 — edição de eventos */
 .editEvent{margin-left:auto;background:transparent;color:#5f7488;font-size:15px;padding:4px 7px}
 .event .remove{margin-left:2px}
+
+/* V4.3 — ícones leves nos separadores */
+.sectionIcon{
+  display:inline-block;
+  width:25px;
+  text-align:center;
+  margin-right:5px;
+  font-size:18px;
+  font-weight:normal;
+  vertical-align:-1px;
+}

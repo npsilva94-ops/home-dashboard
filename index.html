@@ -9,10 +9,10 @@
 <header><div><h1 id="greet">Bom dia!</h1><span id="dateText"></span></div><b id="clock"></b></header>
 <div id="sync" class="sync">● A ligar…</div>
 <main>
-<section class="card weather"><h2>Tempo</h2><div id="forecast" class="forecastLines">A carregar…</div></section>
-<section class="card agenda"><div class="head"><h2>📅 Agenda</h2><button id="showEvent">+ Evento</button></div><div id="events"></div></section>
-<section class="card shopping"><h2>🛒 Lista de compras</h2><div id="shopping" class="list"></div><form id="shoppingForm"><input id="shoppingInput" placeholder="Adicionar item"><button>+</button></form></section>
-<section class="card tasks"><h2>✓ Tarefas</h2><div id="tasks" class="list"></div><form id="taskForm"><input id="taskInput" placeholder="Adicionar tarefa"><button>+</button></form></section><section class="card menu"><div class="head"><h2>🍽 Ementa semanal</h2><span class="hint">Toque para editar</span></div><div id="weeklyMenu" class="menuGrid"></div></section>
+<section class="card weather"><h2><span class="sectionIcon">☀</span> Tempo</h2><div id="forecast" class="forecastLines">A carregar…</div></section>
+<section class="card agenda"><div class="head"><h2><span class="sectionIcon">📅</span> Agenda</h2><button id="showEvent">+ Evento</button></div><div id="events"></div></section>
+<section class="card shopping"><h2><span class="sectionIcon">☷</span> Lista de compras</h2><div id="shopping" class="list"></div><form id="shoppingForm"><input id="shoppingInput" placeholder="Adicionar item"><button>+</button></form></section>
+<section class="card tasks"><h2><span class="sectionIcon">✓</span> Tarefas</h2><div id="tasks" class="list"></div><form id="taskForm"><input id="taskInput" placeholder="Adicionar tarefa"><button>+</button></form></section><section class="card menu"><div class="head"><h2><span class="sectionIcon">🍽</span> Ementa semanal</h2><span class="hint">Toque para editar</span></div><div id="weeklyMenu" class="menuGrid"></div></section>
 </main></div>
 <div id="modal" class="modal"><div class="modalBox">
 <div class="head"><h2 id="eventModalTitle">Novo evento</h2><button type="button" id="closeEvent" class="close">×</button></div><input type="hidden" id="editEventId" value="">
