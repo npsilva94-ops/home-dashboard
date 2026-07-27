@@ -1,6 +1,6 @@
 (function(){
 var DB="https://home-dashboard-61d63-default-rtdb.europe-west1.firebasedatabase.app";
-var state={shopping:{},tasks:{},events:{},menu:{}};
+var state={shopping:{},tasks:{},events:{},menu:{},expenses:{}};
 function el(x){return document.getElementById(x)}
 function esc(s){return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
 function req(method,path,data,cb){
@@ -46,9 +46,11 @@ function renderMenu(){
  box.innerHTML=o
 }
 function saveMenu(target){var key=target.getAttribute("data-menu");if(!key)return;state.menu[key]=target.value;req("PUT","dashboard/menu/"+key,target.value)}
-function render(){renderList("shopping",state.shopping,"shopping");renderList("tasks",state.tasks,"tasks");renderEvents();renderMenu()}
-document.body.onclick=function(e){var t=e.target,edit=t.getAttribute("data-edit-event"),type=t.getAttribute("data-type"),rid=t.getAttribute("data-id"),rem=t.getAttribute("data-remove");if(edit){openEditEvent(edit);return;}if(type&&t.type==="checkbox"){var v=!!t.checked;state[type][rid].done=v;req("PATCH","dashboard/"+type+"/"+rid,{done:v});render()}if(rem){delete state[rem][rid];req("DELETE","dashboard/"+rem+"/"+rid,null);render()}};
+function renderCore(){renderList("shopping",state.shopping,"shopping");renderList("tasks",state.tasks,"tasks");renderEvents();renderMenu()}
+document.body.onclick=function(e){var ee=e.target.getAttribute("data-edit-expense"),ed=e.target.getAttribute("data-delete-expense");if(ee){openEditExpense(ee);return}if(ed){if(state.expenses&&state.expenses[ed]){delete state.expenses[ed];req("DELETE","dashboard/expenses/"+ed);renderExpenses()}return}var t=e.target,edit=t.getAttribute("data-edit-event"),type=t.getAttribute("data-type"),rid=t.getAttribute("data-id"),rem=t.getAttribute("data-remove");if(edit){openEditEvent(edit);return;}if(type&&t.type==="checkbox"){var v=!!t.checked;state[type][rid].done=v;req("PATCH","dashboard/"+type+"/"+rid,{done:v});render()}if(rem){delete state[rem][rid];req("DELETE","dashboard/"+rem+"/"+rid,null);render()}};
 document.body.onchange=function(e){var t=e.target;if(t&&t.getAttribute("data-menu"))saveMenu(t)};
+function render(){renderCore();if(document.getElementById("expenseList"))renderExpenses()}
+
 function bindAdd(form,input,type){el(form).onsubmit=function(e){e.preventDefault();var x=el(input),v=x.value.replace(/^\s+|\s+$/g,"");if(v){var k=id(),item={text:v,done:false};state[type][k]=item;req("PUT","dashboard/"+type+"/"+k,item);x.value="";render()}return false}}
 bindAdd("shoppingForm","shoppingInput","shopping");bindAdd("taskForm","taskInput","tasks");
 function pad(n){return n<10?"0"+n:""+n}
@@ -119,6 +121,16 @@ function exportShoppingPDF(){
  if(win){win.document.open();win.document.write(doc);win.document.close()}
  else{alert("Não foi possível abrir a lista para impressão. Permita janelas pop-up para este site.")}
 }
+
+var expenseView=new Date();expenseView.setDate(1);
+var EXPENSE_CATS={credit:{name:"Crédito",cls:"cat-credit",color:"#7e9fc1"},supermarket:{name:"Supermercado",cls:"cat-supermarket",color:"#86b28e"},house:{name:"Casa",cls:"cat-house",color:"#d5bd6d"},leisure:{name:"Lazer",cls:"cat-leisure",color:"#b48db7"},restaurant:{name:"Restauração",cls:"cat-restaurant",color:"#d59b77"},other:{name:"Outros",cls:"cat-other",color:"#9b9fa3"}};
+function euro(v){var n=Number(v||0).toFixed(2).replace(".",","),p=n.split(","),x=p[0],r="";while(x.length>3){r="."+x.substr(x.length-3)+r;x=x.substr(0,x.length-3)}return x+r+","+p[1]+" €"}
+function expenseMonthKey(){return expenseView.getFullYear()+"-"+pad(expenseView.getMonth()+1)}
+function renderExpensePie(t,sum){var s="",l="",off=0;if(!sum){el("expensePie").innerHTML='<circle cx="21" cy="21" r="15.9155" fill="none" stroke="#e7eaec" stroke-width="7"></circle>';el("expenseLegend").innerHTML="";return}for(var k in EXPENSE_CATS){var v=t[k]||0;if(!v)continue;var pct=v/sum*100,c=EXPENSE_CATS[k];s+='<circle cx="21" cy="21" r="15.9155" fill="none" stroke="'+c.color+'" stroke-width="7" stroke-dasharray="'+pct+' '+(100-pct)+'" stroke-dashoffset="'+(-off)+'"></circle>';off+=pct;l+='<div class="legendRow"><span class="legendDot '+c.cls+'"></span><span class="legendName">'+c.name+'</span><span class="legendValue">'+euro(v)+'</span><span class="legendPct">'+Math.round(pct)+'%</span></div>'}el("expensePie").innerHTML=s;el("expenseLegend").innerHTML=l}
+function renderExpenses(){if(!state.expenses)state.expenses={};var mn=["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];el("expenseMonth").innerHTML=mn[expenseView.getMonth()]+" "+expenseView.getFullYear();var mk=expenseMonthKey(),a=[],k,t={credit:0,supermarket:0,house:0,leisure:0,restaurant:0,other:0},sum=0,o="";for(k in state.expenses){var x=state.expenses[k];if(x&&x.date&&x.date.substr(0,7)===mk){x._id=k;a.push(x)}}a.sort(function(x,y){return y.date.localeCompare(x.date)});for(var i=0;i<a.length;i++){var x=a[i],cat=EXPENSE_CATS[x.category]||EXPENSE_CATS.other,v=Number(x.value||0),p=x.date.split("-");sum+=v;t[x.category in t?x.category:"other"]+=v;o+='<div class="expenseRow"><span class="expenseDate">'+p[2]+"/"+p[1]+'</span><span class="expenseCatDot '+cat.cls+'"></span><span class="expenseDesc">'+esc(x.text||"")+'</span><span class="expenseAmount">'+euro(v)+'</span><button class="expenseEdit" data-edit-expense="'+x._id+'">✎</button><button class="expenseDelete" data-delete-expense="'+x._id+'">×</button></div>'}el("expenseList").innerHTML=o||'<div class="empty">Ainda não existem despesas neste mês.</div>';el("expenseTotal").innerHTML=euro(sum);renderExpensePie(t,sum)}
+function resetExpenseForm(){el("editExpenseId").value="";el("expenseModalTitle").innerHTML="Nova despesa";el("saveExpense").innerHTML="Guardar despesa";var d=new Date();el("expenseDate").value=d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());el("expenseText").value="";el("expenseValue").value="";el("expenseCategory").value="supermarket"}
+function openEditExpense(k){var x=state.expenses[k];if(!x)return;el("editExpenseId").value=k;el("expenseModalTitle").innerHTML="Editar despesa";el("saveExpense").innerHTML="Guardar alterações";el("expenseDate").value=x.date;el("expenseText").value=x.text;el("expenseValue").value=x.value;el("expenseCategory").value=x.category;el("expenseModal").style.display="block"}
+function initExpenses(){el("showExpense").onclick=function(){resetExpenseForm();el("expenseModal").style.display="block"};el("closeExpense").onclick=function(){el("expenseModal").style.display="none"};el("expensePrev").onclick=function(){expenseView.setMonth(expenseView.getMonth()-1);renderExpenses()};el("expenseNext").onclick=function(){expenseView.setMonth(expenseView.getMonth()+1);renderExpenses()};el("expenseForm").onsubmit=function(e){e.preventDefault();var tx=el("expenseText").value.replace(/^\s+|\s+$/g,""),v=parseFloat(el("expenseValue").value);if(!tx||!v)return false;var k=el("editExpenseId").value||id(),it={date:el("expenseDate").value,text:tx,value:v,category:el("expenseCategory").value};state.expenses[k]=it;req("PUT","dashboard/expenses/"+k,it);el("expenseModal").style.display="none";renderExpenses();return false};renderExpenses()}
 function wi(c){if(c===0)return"☀";if(c<=3)return"⛅";if(c<=48)return"☁";if(c<=67)return"☂";if(c<=77)return"❄";if(c<=82)return"☂";return"☂"}
 var WEATHER_KEY="home.weather.cache.v2.5days",WEATHER_MAX_AGE=10800000;
 function weatherReadLocal(){try{var x=localStorage.getItem(WEATHER_KEY);return x?JSON.parse(x):null}catch(e){return null}}
@@ -164,6 +176,7 @@ function weatherStart(){
  })
 }
 el("exportShopping").onclick=exportShoppingPDF;
+initExpenses();
 weatherStart();
 loadAll();setInterval(loadAll,5000);
 })();

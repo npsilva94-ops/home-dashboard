@@ -353,3 +353,19 @@ button{
   min-width:44px;
 }
 .exportBtn:active{opacity:.65}
+
+.expenses{width:calc(100% - 12px);min-height:330px}.expenses:before{background:#9f91bf}
+.expenseHead{align-items:center}.monthNav{display:flex;align-items:center;margin-left:auto;margin-right:10px}
+.monthNav button{background:#eef1f4;color:#56636b;padding:5px 9px;font-size:18px}.monthNav b{min-width:125px;text-align:center;font-size:13px}
+.expenseAdd{background:#756a91;padding:7px 11px;font-size:13px}.expenseLayout{display:flex;gap:18px}
+.expenseLeft{width:62%}.expenseSummary{width:38%;border-left:1px solid #e7eaec;padding-left:18px;text-align:center}
+.expenseList{max-height:255px;overflow:auto}.expenseRow{display:flex;align-items:center;min-height:40px;border-bottom:1px solid #edf0f1;padding:6px 1px}
+.expenseDate{width:54px;font-size:11px;color:#899198}.expenseCatDot{width:10px;height:10px;border-radius:50%;margin:0 9px 0 2px;flex:none}
+.expenseDesc{flex:1;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.expenseAmount{width:82px;text-align:right;font-weight:600;font-size:13px}
+.expenseEdit,.expenseDelete{background:transparent;color:#879198;padding:5px 7px;font-size:15px}.expenseDelete{font-size:19px}
+.expenseTotalLabel{font-size:11px;color:#8a9298;text-transform:uppercase}.expenseTotal{font-size:25px;font-weight:600;margin:3px 0 7px}
+.pieWrap{width:145px;height:145px;margin:0 auto 8px}.expensePie{width:100%;height:100%;transform:rotate(-90deg)}
+.expenseLegend{text-align:left;font-size:11px;max-width:245px;margin:auto}.legendRow{display:flex;align-items:center;padding:3px 0}
+.legendDot{width:8px;height:8px;border-radius:50%;margin-right:7px}.legendName{flex:1}.legendValue{font-weight:600;margin-left:6px}.legendPct{width:34px;text-align:right;color:#8b9297}
+.cat-credit{background:#7e9fc1}.cat-supermarket{background:#86b28e}.cat-house{background:#d5bd6d}.cat-leisure{background:#b48db7}.cat-restaurant{background:#d59b77}.cat-other{background:#9b9fa3}
+@media(max-width:700px){.expenseLayout{display:block}.expenseLeft,.expenseSummary{width:100%}.expenseSummary{border-left:0;border-top:1px solid #e7eaec;margin-top:14px;padding:14px 0 0}}

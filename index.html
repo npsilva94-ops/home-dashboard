@@ -12,6 +12,23 @@
 <section class="card agenda"><div class="head"><h2><span class="sectionIcon">📅</span> Agenda</h2><button id="showEvent">+ Evento</button></div><div id="events"></div></section>
 <section class="card shopping"><div class="head"><h2><span class="sectionIcon">☷</span> Lista de compras</h2><button id="exportShopping" class="exportBtn">PDF</button></div><div id="shopping" class="list"></div><form id="shoppingForm"><input id="shoppingInput" placeholder="Adicionar item"><button>+</button></form></section>
 <section class="card tasks"><h2><span class="sectionIcon">✓</span> Tarefas</h2><div id="tasks" class="list"></div><form id="taskForm"><input id="taskInput" placeholder="Adicionar tarefa"><button>+</button></form></section><section class="card menu"><div class="head"><h2><span class="sectionIcon">🍽</span> Ementa semanal</h2><span class="hint">Toque para editar</span></div><div id="weeklyMenu" class="menuGrid"></div></section>
+
+<section class="card expenses">
+ <div class="head expenseHead">
+  <h2><span class="sectionIcon">€</span> Despesas do mês</h2>
+  <div class="monthNav"><button id="expensePrev" type="button">‹</button><b id="expenseMonth"></b><button id="expenseNext" type="button">›</button></div>
+  <button id="showExpense" type="button" class="expenseAdd">+ Despesa</button>
+ </div>
+ <div class="expenseLayout">
+  <div class="expenseLeft"><div id="expenseList" class="expenseList"></div></div>
+  <div class="expenseSummary">
+   <div class="expenseTotalLabel">Total gasto</div><div id="expenseTotal" class="expenseTotal">0,00 €</div>
+   <div class="pieWrap"><svg id="expensePie" class="expensePie" viewBox="0 0 42 42"></svg></div>
+   <div id="expenseLegend" class="expenseLegend"></div>
+  </div>
+ </div>
+</section>
+
 </main></div>
 <div id="modal" class="modal"><div class="modalBox">
 <div class="head"><h2 id="eventModalTitle">Novo evento</h2><button type="button" id="closeEvent" class="close">×</button></div><input type="hidden" id="editEventId" value="">
@@ -22,4 +39,24 @@
 <label>Categoria</label><select id="who"><option value="maryli">● Maryli</option><option value="lourenco">● Lourenço</option><option value="nuno">● Nuno</option><option value="casa">● Casa</option></select><label>Repetição</label><select id="repeat"><option value="none">Não repetir</option><option value="weekly">Semanal</option><option value="monthly">Mensal</option></select>
 <button id="saveEvent" class="save">Guardar evento</button>
 </form></div></div>
+
+<div id="expenseModal" class="modal">
+ <div class="modalBox">
+  <div class="head"><h2 id="expenseModalTitle">Nova despesa</h2><button type="button" id="closeExpense" class="close">×</button></div>
+  <form id="expenseForm">
+   <input type="hidden" id="editExpenseId">
+   <label>Data</label><input id="expenseDate" type="date" required>
+   <label>Descrição</label><input id="expenseText" type="text" maxlength="80" placeholder="Ex.: supermercado, eletricidade…" required>
+   <label>Valor (€)</label><input id="expenseValue" type="number" min="0.01" step="0.01" required>
+   <label>Categoria</label>
+   <select id="expenseCategory">
+    <option value="credit">Crédito</option><option value="supermarket">Supermercado</option>
+    <option value="house">Casa</option><option value="leisure">Lazer</option>
+    <option value="restaurant">Restauração</option><option value="other">Outros</option>
+   </select>
+   <button id="saveExpense" class="save" type="submit">Guardar despesa</button>
+  </form>
+ </div>
+</div>
+
 <script src="app.js"></script></body></html>
