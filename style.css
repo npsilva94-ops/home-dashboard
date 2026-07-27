@@ -340,3 +340,7 @@ button{
 
 /* V5.1 — weather cache */
 .weatherUpdated{font-size:10px;color:#9aa1a6;white-space:nowrap}
+
+/* V5.2 — cinco dias no mesmo cartão compacto */
+.weather{min-height:245px}
+.weatherLine{min-height:36px;padding:6px 2px}
