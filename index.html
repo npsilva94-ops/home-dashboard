@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Casa</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="homeIcon">⌂</div>
+    <div><h1 id="greeting">Bom dia!</h1><div id="dateText" class="muted"></div></div>
+    <div id="clock" class="clock"></div>
+  </header>
+
+  <main>
+    <section class="card weather">
+      <h2>☀ Tempo</h2>
+      <div class="temperature">--°C</div>
+      <div id="weatherPlace">Santarém</div>
+      <div id="weatherInfo" class="muted">A carregar…</div>
+    </section>
+
+    <section class="card">
+      <h2>📅 Hoje</h2>
+      <div id="events" class="list"></div>
+      <form id="eventForm" class="addForm">
+        <input id="eventTime" placeholder="Hora" maxlength="5">
+        <input id="eventText" placeholder="Novo compromisso">
+        <button>+</button>
+      </form>
+    </section>
+
+    <section class="card shopping">
+      <h2>🛒 Lista de compras</h2>
+      <div id="shoppingList" class="list"></div>
+      <form id="shoppingForm" class="addForm">
+        <input id="shoppingInput" placeholder="Adicionar item">
+        <button>+</button>
+      </form>
+    </section>
+
+    <section class="card wide">
+      <h2>📆 Próximos dias</h2>
+      <div class="week" id="week"></div>
+    </section>
+
+    <section class="card tasks">
+      <h2>✓ Tarefas</h2>
+      <div id="taskList" class="list"></div>
+      <form id="taskForm" class="addForm">
+        <input id="taskInput" placeholder="Adicionar tarefa">
+        <button>+</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>Casa · Dashboard doméstico</footer>
+</div>
+<script src="app.js"></script>
+</body>
+</html>

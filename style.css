@@ -1,0 +1,9 @@
+*{box-sizing:border-box}html,body{margin:0;padding:0;background:#f4f5f7;color:#202124;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif}
+body{min-height:100vh}.app{max-width:1024px;margin:0 auto;padding:22px}
+header{display:flex;align-items:center;margin-bottom:18px}.homeIcon{font-size:42px;color:#3578b9;margin-right:14px}h1{margin:0;font-size:30px}h2{font-size:18px;margin:0 0 14px}.muted{color:#6f7479}.clock{margin-left:auto;font-size:26px;font-weight:600}
+main{display:flex;flex-wrap:wrap;margin:-7px}.card{background:#fff;border:1px solid #dde1e5;border-radius:14px;padding:18px;margin:7px;width:calc(33.333% - 14px);min-height:245px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.card.wide{width:calc(66.666% - 14px);min-height:170px}.weather{background:#edf6ff}.shopping{background:#f4faec}.tasks{background:#fff9e9}
+.temperature{font-size:52px;font-weight:600;margin:22px 0 5px}.list .row{display:flex;align-items:center;border-bottom:1px solid rgba(0,0,0,.08);padding:10px 2px}.row input[type=checkbox]{width:21px;height:21px;margin-right:10px}.row.done span{text-decoration:line-through;color:#8b8f93}.delete{margin-left:auto;border:0;background:transparent;color:#999;font-size:18px;padding:5px 8px}
+.addForm{display:flex;margin-top:14px}.addForm input{min-width:0;border:1px solid #ccd1d6;border-radius:8px;padding:9px;font-size:16px;flex:1}.addForm input:first-child:not(:last-of-type){max-width:64px;margin-right:5px}.addForm button{width:38px;margin-left:6px;border:0;border-radius:8px;background:#377cbd;color:white;font-size:24px}
+.week{display:flex;justify-content:space-between;text-align:center}.day{width:14%;padding:10px 3px}.day strong{display:block;margin-bottom:8px}.day .symbol{font-size:27px;margin:8px 0}footer{text-align:center;color:#90959a;padding:20px}
+@media(max-width:700px){.app{padding:12px}.card,.card.wide{width:calc(100% - 14px);min-height:auto}.clock{font-size:20px}.week{font-size:12px}h1{font-size:25px}}
