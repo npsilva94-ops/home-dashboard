@@ -57,7 +57,20 @@ fillSelects();var modal=el("modal");el("showEvent").onclick=function(){modal.sty
 el("eventForm").onsubmit=function(e){e.preventDefault();var text=el("eventText").value.replace(/^\s+|\s+$/g,"");if(!text)return false;var date=el("year").value+"-"+pad(+el("month").value)+"-"+pad(+el("day").value),time=el("hour").value+":"+el("minute").value,k=id(),item={date:date,time:time,text:text,who:el("who").value,repeat:el("repeat").value};state.events[k]=item;req("PUT","dashboard/events/"+k,item);el("eventText").value="";modal.style.display="none";render();return false};
 var days=["Domingo","Segunda-feira","Terça-feira","Quarta-feira","Quinta-feira","Sexta-feira","Sábado"],months=["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
 function tick(){var d=new Date(),h=d.getHours(),m=d.getMinutes();el("greet").innerHTML=h<12?"Bom dia!":h<20?"Boa tarde!":"Boa noite!";el("dateText").innerHTML=days[d.getDay()]+", "+d.getDate()+" de "+months[d.getMonth()];el("clock").innerHTML=pad(h)+":"+pad(m)}tick();setInterval(tick,30000);
-function wi(c){return c===0?"☀":c<=3?"⛅":c<=48?"☁":c<=67?"🌧":c<=77?"❄":c<=82?"🌦":"⛈"}
-var w=new XMLHttpRequest();w.onreadystatechange=function(){if(w.readyState===4&&w.status>=200&&w.status<300){try{var j=JSON.parse(w.responseText),o='<div class="days">',n=["Hoje","Amanhã","Depois"];for(var i=0;i<3;i++)o+='<div class="day"><b>'+n[i]+'</b><div class="icon">'+wi(j.daily.weather_code[i])+'</div><div class="temp">'+Math.round(j.daily.temperature_2m_max[i])+'°</div><small>mín. '+Math.round(j.daily.temperature_2m_min[i])+'°</small></div>';el("forecast").innerHTML=o+"</div>"}catch(e){}}};w.open("GET","https://api.open-meteo.com/v1/forecast?latitude=39.2362&longitude=-8.6859&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Europe%2FLisbon&forecast_days=3",true);w.send();
+function wi(c){if(c===0)return"☀";if(c<=3)return"⛅";if(c<=48)return"☁";if(c<=67)return"☂";if(c<=77)return"❄";if(c<=82)return"☂";return"☂"}
+var w=new XMLHttpRequest();
+w.onreadystatechange=function(){
+ if(w.readyState===4&&w.status>=200&&w.status<300){
+  try{
+   var j=JSON.parse(w.responseText),o="",n=["Hoje","Amanhã","Depois"];
+   for(var i=0;i<3;i++){
+    o+='<div class="weatherLine"><span class="weatherSymbol">'+wi(j.daily.weather_code[i])+'</span><span class="weatherName">'+n[i]+'</span><span class="weatherRange">'+Math.round(j.daily.temperature_2m_max[i])+'° <small>mín. '+Math.round(j.daily.temperature_2m_min[i])+'°</small></span></div>'
+   }
+   el("forecast").innerHTML=o
+  }catch(e){}
+ }
+};
+w.open("GET","https://api.open-meteo.com/v1/forecast?latitude=39.2362&longitude=-8.6859&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=Europe%2FLisbon&forecast_days=3",true);
+w.send();
 loadAll();setInterval(loadAll,5000);
 })();
