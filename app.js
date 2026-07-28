@@ -42,13 +42,13 @@ function renderEvents(){
 var menuDays=[["mon","Segunda"],["tue","Terça"],["wed","Quarta"],["thu","Quinta"],["fri","Sexta"],["sat","Sábado"],["sun","Domingo"]];
 function renderMenu(){
  var box=el("weeklyMenu"),o="",i,key,val;
- for(i=0;i<menuDays.length;i++){key=menuDays[i][0];val=state.menu[key]||"";o+='<div class="menuDay"><b>'+menuDays[i][1]+'</b><textarea data-menu="'+key+'" placeholder="Ementa…">'+esc(val)+'</textarea></div>'}
+ for(i=0;i<menuDays.length;i++){key=menuDays[i][0];val=state.menu[key]||"";o+='<div class="menuDay"><b>'+menuDays[i][1]+'</b><textarea data-menu="'+key+'" placeholder="Ementa…">'+esc(val)+'</textarea><button type="button" class="menuSave" data-save-menu="'+key+'">Guardar</button></div>'}
  box.innerHTML=o
 }
 function saveMenu(target){var key=target.getAttribute("data-menu");if(!key)return;state.menu[key]=target.value;req("PUT","dashboard/menu/"+key,target.value)}
 function renderCore(){renderList("shopping",state.shopping,"shopping");renderList("tasks",state.tasks,"tasks");renderEvents();renderMenu()}
-document.body.onclick=function(e){var ee=e.target.getAttribute("data-edit-expense"),ed=e.target.getAttribute("data-delete-expense");if(ee){openEditExpense(ee);return}if(ed){if(state.expenses&&state.expenses[ed]){delete state.expenses[ed];req("DELETE","dashboard/expenses/"+ed);renderExpenses()}return}var t=e.target,edit=t.getAttribute("data-edit-event"),type=t.getAttribute("data-type"),rid=t.getAttribute("data-id"),rem=t.getAttribute("data-remove");if(edit){openEditEvent(edit);return;}if(type&&t.type==="checkbox"){var v=!!t.checked;state[type][rid].done=v;req("PATCH","dashboard/"+type+"/"+rid,{done:v});render()}if(rem){delete state[rem][rid];req("DELETE","dashboard/"+rem+"/"+rid,null);render()}};
-document.body.onchange=function(e){var t=e.target;if(t&&t.getAttribute("data-menu"))saveMenu(t)};
+document.body.onclick=function(e){var sm=e.target.getAttribute("data-save-menu");if(sm){var ta=document.querySelector('textarea[data-menu="'+sm+'"]');if(ta){state.menu[sm]=ta.value;req("PUT","dashboard/menu/"+sm,ta.value);e.target.innerHTML="Guardado ✓";e.target.className="menuSave saved";var btn=e.target;setTimeout(function(){btn.innerHTML="Guardar";btn.className="menuSave"},1200)}return}var ee=e.target.getAttribute("data-edit-expense"),ed=e.target.getAttribute("data-delete-expense");if(ee){openEditExpense(ee);return}if(ed){if(state.expenses&&state.expenses[ed]){delete state.expenses[ed];req("DELETE","dashboard/expenses/"+ed);renderExpenses()}return}var t=e.target,edit=t.getAttribute("data-edit-event"),type=t.getAttribute("data-type"),rid=t.getAttribute("data-id"),rem=t.getAttribute("data-remove");if(edit){openEditEvent(edit);return;}if(type&&t.type==="checkbox"){var v=!!t.checked;state[type][rid].done=v;req("PATCH","dashboard/"+type+"/"+rid,{done:v});render()}if(rem){delete state[rem][rid];req("DELETE","dashboard/"+rem+"/"+rid,null);render()}};
+document.body.onchange=function(e){};
 function render(){renderCore();if(document.getElementById("expenseList"))renderExpenses()}
 
 function bindAdd(form,input,type){el(form).onsubmit=function(e){e.preventDefault();var x=el(input),v=x.value.replace(/^\s+|\s+$/g,"");if(v){var k=id(),item={text:v,done:false};state[type][k]=item;req("PUT","dashboard/"+type+"/"+k,item);x.value="";render()}return false}}

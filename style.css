@@ -369,3 +369,8 @@ button{
 .legendDot{width:8px;height:8px;border-radius:50%;margin-right:7px}.legendName{flex:1}.legendValue{font-weight:600;margin-left:6px}.legendPct{width:34px;text-align:right;color:#8b9297}
 .cat-credit{background:#7e9fc1}.cat-supermarket{background:#86b28e}.cat-house{background:#d5bd6d}.cat-leisure{background:#b48db7}.cat-restaurant{background:#d59b77}.cat-other{background:#9b9fa3}
 @media(max-width:700px){.expenseLayout{display:block}.expenseLeft,.expenseSummary{width:100%}.expenseSummary{border-left:0;border-top:1px solid #e7eaec;margin-top:14px;padding:14px 0 0}}
+
+/* V7.1 ementa */
+.menuDay textarea{height:92px;min-height:92px;line-height:18px}
+.menuSave{width:100%;margin-top:6px;padding:6px 3px;background:#eef1f4;color:#59666e;font-size:11px;border:1px solid #dde2e5;border-radius:6px}
+.menuSave.saved{background:#e8f3ea;color:#54785b}
