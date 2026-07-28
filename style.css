@@ -374,3 +374,8 @@ button{
 .menuDay textarea{height:92px;min-height:92px;line-height:18px}
 .menuSave{width:100%;margin-top:6px;padding:6px 3px;background:#eef1f4;color:#59666e;font-size:11px;border:1px solid #dde2e5;border-radius:6px}
 .menuSave.saved{background:#e8f3ea;color:#54785b}
+
+/* V7.2 — novas categorias de despesas */
+.cat-car{background:#6f9aa8}
+.cat-health{background:#c77f89}
+.cat-gym{background:#8b78a8}
