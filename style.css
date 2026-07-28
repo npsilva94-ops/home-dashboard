@@ -379,3 +379,18 @@ button{
 .cat-car{background:#6f9aa8}
 .cat-health{background:#c77f89}
 .cat-gym{background:#8b78a8}
+
+/* V7.3 — cores de despesas corrigidas e reforçadas */
+.cat-credit{background:#4F7CAC !important;}
+.cat-supermarket{background:#4FA66A !important;}
+.cat-house{background:#E0B43C !important;}
+.cat-car{background:#E67E22 !important;}
+.cat-health{background:#D94F70 !important;}
+.cat-gym{background:#7B61B3 !important;}
+.cat-leisure{background:#20A4B8 !important;}
+.cat-restaurant{background:#C7653D !important;}
+.cat-other{background:#7D858C !important;}
+
+.expenseCatDot,.legendDot{display:inline-block;min-width:10px;min-height:10px}
+.legendDot{min-width:9px;min-height:9px}
+.expensePie circle{shape-rendering:geometricPrecision}
