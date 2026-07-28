@@ -394,3 +394,16 @@ button{
 .expenseCatDot,.legendDot{display:inline-block;min-width:10px;min-height:10px}
 .legendDot{min-width:9px;min-height:9px}
 .expensePie circle{shape-rendering:geometricPrecision}
+
+/* V7.4 — ementa sem interrupções */
+.menuDay textarea{
+  height:110px;
+  min-height:110px;
+  line-height:19px;
+  overflow-y:auto;
+}
+.menuDay textarea:focus{
+  outline:2px solid rgba(82,127,165,.18);
+  border-color:#9db5c8;
+  background:#fff;
+}
