@@ -76,11 +76,13 @@ function toggleSectionExpand(kind,btn){
  var expanded=card.className.indexOf("sectionExpanded")>=0;
  if(expanded){
   card.className=card.className.replace(/\s*sectionExpanded/g,"");
-  btn.innerHTML="Expandir";
+  btn.innerHTML="↗";
+  btn.title="Expandir";
   btn.className="expandBtn";
  }else{
   card.className+=" sectionExpanded";
   btn.innerHTML="Fechar";
+  btn.title="Fechar";
   btn.className="expandBtn active";
  }
 }

@@ -449,3 +449,43 @@ button{
   flex:none;
   display:block;
 }
+
+/* V7.7 — expansão melhorada */
+.expandBtn{
+  min-width:31px;
+  height:29px;
+  padding:4px 7px;
+  font-size:18px;
+  line-height:18px;
+  font-weight:600;
+}
+.expandBtn.active{
+  width:auto;
+  min-width:48px;
+  font-size:11px;
+  font-weight:normal;
+}
+
+/* Compras e tarefas: ao expandir, mostrar aproximadamente 20 itens antes do scroll */
+.card.shopping.sectionExpanded,
+.card.tasks.sectionExpanded{
+  min-height:0 !important;
+  height:auto !important;
+}
+.card.shopping.sectionExpanded .list,
+.card.tasks.sectionExpanded .list{
+  min-height:0 !important;
+  height:auto !important;
+  max-height:820px !important;
+  overflow-y:auto !important;
+}
+
+/* Agenda mantém o comportamento de expansão anterior */
+.card.agenda.sectionExpanded{
+  min-height:470px !important;
+}
+.card.agenda.sectionExpanded #events{
+  min-height:380px !important;
+  max-height:560px !important;
+  overflow-y:auto !important;
+}
