@@ -28,12 +28,12 @@
 <link rel="manifest" href="./manifest.json">
 </head><body>
 <div class="app">
-<header><div class="welcome"><span class="homeMark">⌂</span><div><h1 id="greet">Bom dia!</h1><span id="dateText"></span></div></div><div class="headerRight"><b id="clock"></b><span id="sync" class="sync" title="Estado da sincronização">●</span></div></header>
+<header><div class="welcome"><img src="apple-touch-icon.png" class="headerAppIcon" alt="Casa"><div><h1 id="greet">Bom dia!</h1><span id="dateText"></span></div></div><div class="headerRight"><b id="clock"></b><span id="sync" class="sync" title="Estado da sincronização">●</span></div></header>
 <main>
 <section class="card weather"><div class="head"><h2><span class="sectionIcon">☀</span> Tempo</h2><span id="weatherUpdated" class="weatherUpdated"></span></div><div id="forecast" class="forecastLines">A carregar…</div></section>
-<section class="card agenda"><div class="head"><h2><span class="sectionIcon">📅</span> Agenda</h2><button id="showEvent">+ Evento</button></div><div id="events"></div></section>
-<section class="card shopping"><div class="head"><h2><span class="sectionIcon">☷</span> Lista de compras</h2><button id="exportShopping" class="exportBtn">PDF</button></div><div id="shopping" class="list"></div><form id="shoppingForm"><input id="shoppingInput" placeholder="Adicionar item"><button>+</button></form></section>
-<section class="card tasks"><h2><span class="sectionIcon">✓</span> Tarefas</h2><div id="tasks" class="list"></div><form id="taskForm"><input id="taskInput" placeholder="Adicionar tarefa"><button>+</button></form></section><section class="card menu"><div class="head"><h2><span class="sectionIcon">🍽</span> Ementa semanal</h2><span class="hint">Toque para editar</span></div><div id="weeklyMenu" class="menuGrid"></div></section>
+<section class="card agenda"><div class="head"><h2><span class="sectionIcon">📅</span> Agenda</h2><div class="headActions"><button type="button" class="expandBtn" data-expand="events">Expandir</button><button id="showEvent">+ Evento</button></div></div><div id="events"></div></section>
+<section class="card shopping"><div class="head"><h2><span class="sectionIcon">☷</span> Lista de compras</h2><div class="headActions"><button type="button" class="expandBtn" data-expand="shopping">Expandir</button><button id="exportShopping" class="exportBtn">PDF</button></div></div><div id="shopping" class="list"></div><form id="shoppingForm"><input id="shoppingInput" placeholder="Adicionar item"><button>+</button></form></section>
+<section class="card tasks"><div class="head"><h2><span class="sectionIcon">✓</span> Tarefas</h2><button type="button" class="expandBtn" data-expand="tasks">Expandir</button></div><div id="tasks" class="list"></div><form id="taskForm"><input id="taskInput" placeholder="Adicionar tarefa"><button>+</button></form></section><section class="card menu"><div class="head"><h2><span class="sectionIcon">🍽</span> Ementa semanal</h2><span class="hint">Toque para editar</span></div><div id="weeklyMenu" class="menuGrid"></div></section>
 
 <section class="card expenses">
  <div class="head expenseHead">

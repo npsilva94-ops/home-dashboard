@@ -407,3 +407,45 @@ button{
   border-color:#9db5c8;
   background:#fff;
 }
+
+/* V7.5 — secções expansíveis */
+.headActions{display:flex;align-items:center;gap:6px}
+.expandBtn{
+  padding:6px 9px;
+  background:#eef1f4;
+  color:#65737c;
+  border:1px solid #dde2e5;
+  font-size:11px;
+  border-radius:7px;
+}
+.expandBtn.active{
+  background:#e5ebef;
+  color:#3f5665;
+}
+.card.sectionExpanded{
+  width:calc(100% - 12px) !important;
+  min-height:470px !important;
+}
+.card.sectionExpanded .list,
+.card.sectionExpanded #events{
+  max-height:560px !important;
+  min-height:380px !important;
+}
+@media(max-width:700px){
+  .card.sectionExpanded{min-height:420px !important}
+  .card.sectionExpanded .list,
+  .card.sectionExpanded #events{
+    min-height:320px !important;
+    max-height:520px !important;
+  }
+}
+
+/* V7.6 — ícone Casa no cabeçalho */
+.headerAppIcon{
+  width:42px;
+  height:42px;
+  border-radius:11px;
+  object-fit:cover;
+  flex:none;
+  display:block;
+}

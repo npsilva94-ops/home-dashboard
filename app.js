@@ -66,7 +66,25 @@ function renderMenu(){
 }
 function saveMenu(target){var key=target.getAttribute("data-menu");if(!key)return;state.menu[key]=target.value;req("PUT","dashboard/menu/"+key,target.value)}
 function renderCore(){renderList("shopping",state.shopping,"shopping");renderList("tasks",state.tasks,"tasks");renderEvents();renderMenu()}
-document.body.onclick=function(e){var sm=e.target.getAttribute("data-save-menu");if(sm){var ta=document.querySelector('textarea[data-menu="'+sm+'"]');if(ta){state.menu[sm]=ta.value;req("PUT","dashboard/menu/"+sm,ta.value);menuDirty[sm]=false;e.target.innerHTML="Guardado ✓";e.target.className="menuSave saved";var btn=e.target;setTimeout(function(){btn.innerHTML="Guardar";btn.className="menuSave"},1200)}return}var ee=e.target.getAttribute("data-edit-expense"),ed=e.target.getAttribute("data-delete-expense");if(ee){openEditExpense(ee);return}if(ed){if(state.expenses&&state.expenses[ed]){delete state.expenses[ed];req("DELETE","dashboard/expenses/"+ed);renderExpenses()}return}var t=e.target,edit=t.getAttribute("data-edit-event"),type=t.getAttribute("data-type"),rid=t.getAttribute("data-id"),rem=t.getAttribute("data-remove");if(edit){openEditEvent(edit);return;}if(type&&t.type==="checkbox"){var v=!!t.checked;state[type][rid].done=v;req("PATCH","dashboard/"+type+"/"+rid,{done:v});render()}if(rem){delete state[rem][rid];req("DELETE","dashboard/"+rem+"/"+rid,null);render()}};
+
+function toggleSectionExpand(kind,btn){
+ var card=null;
+ if(kind==="events")card=document.querySelector(".card.agenda");
+ if(kind==="shopping")card=document.querySelector(".card.shopping");
+ if(kind==="tasks")card=document.querySelector(".card.tasks");
+ if(!card)return;
+ var expanded=card.className.indexOf("sectionExpanded")>=0;
+ if(expanded){
+  card.className=card.className.replace(/\s*sectionExpanded/g,"");
+  btn.innerHTML="Expandir";
+  btn.className="expandBtn";
+ }else{
+  card.className+=" sectionExpanded";
+  btn.innerHTML="Fechar";
+  btn.className="expandBtn active";
+ }
+}
+document.body.onclick=function(e){var ex=e.target.getAttribute("data-expand");if(ex){toggleSectionExpand(ex,e.target);return}var sm=e.target.getAttribute("data-save-menu");if(sm){var ta=document.querySelector('textarea[data-menu="'+sm+'"]');if(ta){state.menu[sm]=ta.value;req("PUT","dashboard/menu/"+sm,ta.value);menuDirty[sm]=false;e.target.innerHTML="Guardado ✓";e.target.className="menuSave saved";var btn=e.target;setTimeout(function(){btn.innerHTML="Guardar";btn.className="menuSave"},1200)}return}var ee=e.target.getAttribute("data-edit-expense"),ed=e.target.getAttribute("data-delete-expense");if(ee){openEditExpense(ee);return}if(ed){if(state.expenses&&state.expenses[ed]){delete state.expenses[ed];req("DELETE","dashboard/expenses/"+ed);renderExpenses()}return}var t=e.target,edit=t.getAttribute("data-edit-event"),type=t.getAttribute("data-type"),rid=t.getAttribute("data-id"),rem=t.getAttribute("data-remove");if(edit){openEditEvent(edit);return;}if(type&&t.type==="checkbox"){var v=!!t.checked;state[type][rid].done=v;req("PATCH","dashboard/"+type+"/"+rid,{done:v});render()}if(rem){delete state[rem][rid];req("DELETE","dashboard/"+rem+"/"+rid,null);render()}};
 document.body.onchange=function(e){};
 document.body.oninput=function(e){
  var t=e.target,key=t&&t.getAttribute?t.getAttribute("data-menu"):null;
